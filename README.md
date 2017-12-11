@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/subchen/frep.svg?branch=master)](https://travis-ci.org/subchen/frep)
 [![License](http://img.shields.io/badge/License-Apache_2-red.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
 
-Configure networking from vSphere ovfEnv properties
+Configure networking from vSphere ovfEnv properties (CentOS 7.0+ Only)
 
 ```
 NAME:
@@ -31,7 +31,8 @@ EXAMPLES:
 
 ## Downloads
 
-v1.0.0 Release: https://github.com/subchen/ovfenv-installer/releases/tag/v1.0.0
+v1.0.0 Released: 
+https://github.com/subchen/ovfenv-installer/releases/tag/v1.0.0
 
 ## Examples:
 

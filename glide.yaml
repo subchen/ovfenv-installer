@@ -1,0 +1,11 @@
+package: github.com/subchen/ovfenv-installer
+import:
+- package: github.com/ungerik/go-dry
+- package: github.com/subchen/go-cli
+  version: 1.x
+- package: github.com/subchen/go-xmldom
+  version: 1.x
+- package: github.com/subchen/go-stack
+  version: 1.x
+- package: github.com/subchen/go-log
+  version: 2.x

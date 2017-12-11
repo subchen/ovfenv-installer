@@ -1,0 +1,16 @@
+language: go
+
+go:
+- 1.9
+
+script: make release
+
+deploy:
+  provider: releases
+  api_key:
+    secure: xTOqnEc5nXRaZbH3oSLLgO3PhU7HXdqLYS24W2d7GsssMEkLAwSVFCrDYRjotXWvzO700XJsEpYIYJwcAzhQyQBmALqXc0S25E/0hx8+zyIcyXFRLqE1J0KnBiTjGNscJIcGRP+XxNS0RzxxtF1CkdaL8171SRMJjvJHMHrTIxmsUFxYUHQxi/8FoPM4a8Jr/88Cw9ZnMN/mxnTJh25fVhbp12gYO12/cbxXrP59HY2XNTQW/8XkeYsLkfqgO4OT5mypUk4bR1F+jLTeidHSQZ5fDX+Vu0TltJ1FOwvpPEECMU12HarW3TrNpJnLIidhvVnLoiZTXbpzvxFT7pTwwoGEOhGUaVTU2BR5EHieBUYNP4GPyHVqYX4jU58dNir7ecUPtwemUpvR+zZvCSY+8G7HmMuBRlvqcleZHQjIICDNQ3CYRHDZBO9qJS7Jx9AmHEHc5b9DXS6Je1m0DaafkNWtlelQhdyQTPaBnwlVkwBOB0GvcAPiqcK8zDLgjjIMuDI9vfb2Y7zC8yCLHxlZMFhsnJABvCYZI9VdiyPtLOQJ1VCvVeJg67dD20ii+BdvncfkUkUwmyiP36D/8GqJSEhesE/B0mN8rbKmYHEJ53RhEDe6rxld363O0TCISfoAHI/xa0Y6P8fDMubVbpTDtFt5V9U+zUEHj23H88P8ahg=
+  file_glob: true
+  file: releases/*
+  skip_cleanup: true
+  on:
+    tags: true

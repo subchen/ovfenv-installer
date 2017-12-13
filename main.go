@@ -240,6 +240,10 @@ func configureDNS(props map[string]string) {
 		sb.Writeln("domain " + domain)
 	}
 
+	if dnssearch, ok := props["dnssearch"]; ok {
+		sb.Writeln("search " + dnssearch)
+	}
+
 	for i := 0; i < 5; i++ {
 		idx := strconv.Itoa(i)
 		if dns, ok := props["dns"+idx]; ok {

@@ -1,6 +1,6 @@
 CWD     := $(shell pwd)
 NAME    := ovfenv-installer
-VERSION := 1.0.0
+VERSION := 1.0.1
 
 GOPATH  := /tmp/go
 GOPWD   := $(GOPATH)/src/github.com/subchen
@@ -30,6 +30,7 @@ clean:
 pre-install:
 	[ -n "$(shell type -P glide)" ]    || go get -u github.com/Masterminds/glide/...
 	[ -n "$(shell type -P glide-vc)" ] || go get -u github.com/sgotti/glide-vc/...
+	[ -n "$(shell type -P fpm)" ]      || gem install fpm
 
 glide-update:
 	glide update
@@ -46,7 +47,22 @@ lint: fmt
 build: clean init fmt
 	cd $(GOCWD) && GOOS=linux GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o releases/$(NAME)-$(VERSION)
 
-md5sum: build
-	cd $(CWD)/releases; md5sum "$(NAME)-$(VERSION)" > "$(NAME)-$(VERSION).md5"
+rpm: build
+	@ mkdir -p rpmbuild/usr/local/bin/
+	@ cp -f releases/$(NAME)-$(VERSION) rpmbuild/usr/local/bin/$(NAME)
+	@ fpm -s dir -t rpm \
+		--rpm-os linux \
+		--name $(NAME) --version $(VERSION) --iteration $(shell git rev-list HEAD --count) \
+		--maintainer "subchen@gmail.com" --vendor "Guoqiang Chen" \
+		--license "Apache 2" \
+		--url "https://github.com/subchen/$(NAME)" \
+		--description "Configure networking from vSphere ovfEnv properties" \
+		-C rpmbuild/ \
+		--package ./releases/
+
+md5sum: build rpm
+	@ for f in $(shell ls ./releases); do \
+		cd $(CWD)/releases && md5sum "$$f" >> $$f.md5; \
+	done
 
 release: md5sum

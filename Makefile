@@ -1,6 +1,7 @@
 CWD     := $(shell pwd)
 NAME    := ovfenv-installer
 VERSION := 1.0.1
+RELEASE := $(shell git rev-list HEAD --count)
 
 GOPATH  := /tmp/go
 GOPWD   := $(GOPATH)/src/github.com/subchen
@@ -11,7 +12,7 @@ export PATH
 
 LDFLAGS := -s -w \
            -X 'main.BuildVersion=$(VERSION)' \
-           -X 'main.BuildGitRev=$(shell git rev-list HEAD --count)' \
+           -X 'main.BuildGitRev=$(RELEASE)' \
            -X 'main.BuildGitCommit=$(shell git describe --abbrev=0 --always)' \
            -X 'main.BuildDate=$(shell date -u -R)'
 
@@ -22,10 +23,10 @@ default:
 
 init:
 	mkdir -p $(GOPWD)
-	ln -sf $(CWD) $(GOCWD)
+	ln -sf $(CWD) $(GOPWD)
 
 clean:
-	@ rm -rf $(NAME) ./releases
+	@ rm -rf $(NAME) ./releases ./rpmbuild
 
 pre-install:
 	[ -n "$(shell type -P glide)" ]    || go get -u github.com/Masterminds/glide/...
@@ -45,20 +46,16 @@ lint: fmt
 	@ go vet $(PACKAGE)
 
 build: clean init fmt
-	cd $(GOCWD) && GOOS=linux GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o releases/$(NAME)-$(VERSION)
+	@ cd $(GOCWD) && GOOS=linux GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o releases/$(NAME)-$(VERSION)
 
 rpm: build
-	@ mkdir -p rpmbuild/usr/local/bin/
-	@ cp -f releases/$(NAME)-$(VERSION) rpmbuild/usr/local/bin/$(NAME)
-	@ fpm -s dir -t rpm \
-		--rpm-os linux \
-		--name $(NAME) --version $(VERSION) --iteration $(shell git rev-list HEAD --count) \
-		--maintainer "subchen@gmail.com" --vendor "Guoqiang Chen" \
-		--license "Apache 2" \
-		--url "https://github.com/subchen/$(NAME)" \
-		--description "Configure networking from vSphere ovfEnv properties" \
-		-C rpmbuild/ \
-		--package ./releases/
+	mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
+	rpmbuild -bb rpm.spec \
+		--define="_topdir  $(CWD)/rpmbuild" \
+		--define="_rootdir $(CWD)" \
+		--define="_version $(VERSION)" \
+		--define="_release $(RELEASE)"
+	cp -f rpmbuild/RPMS/x86_64/*.rpm releases/
 
 md5sum: build rpm
 	@ for f in $(shell ls ./releases); do \

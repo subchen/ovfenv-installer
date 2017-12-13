@@ -26,7 +26,7 @@ init:
 	ln -sf $(CWD) $(GOPWD)
 
 clean:
-	@ rm -rf $(NAME) ./releases ./rpmbuild
+	rm -rf $(NAME) ./releases ./rpmbuild
 
 pre-install:
 	[ -n "$(shell type -P glide)" ]    || go get -u github.com/Masterminds/glide/...
@@ -40,13 +40,13 @@ glide-vc:
 	glide-vc --only-code --no-tests --no-legal-files
 
 fmt:
-	@ go fmt $(PACKAGE)
+	go fmt $(PACKAGE)
 
 lint: fmt
-	@ go vet $(PACKAGE)
+	go vet $(PACKAGE)
 
 build: clean init fmt
-	@ cd $(GOCWD) && GOOS=linux GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o releases/$(NAME)-$(VERSION)
+	cd $(GOCWD) && GOOS=linux GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o releases/$(NAME)-$(VERSION)
 
 rpm: build
 	mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
@@ -58,7 +58,7 @@ rpm: build
 	cp -f rpmbuild/RPMS/x86_64/*.rpm releases/
 
 md5sum: build rpm
-	@ for f in $(shell ls ./releases); do \
+	for f in $(shell ls ./releases); do \
 		cd $(CWD)/releases && md5sum "$$f" >> $$f.md5; \
 	done
 

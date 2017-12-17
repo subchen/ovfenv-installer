@@ -3,13 +3,6 @@ NAME    := ovfenv-installer
 VERSION := 1.0.1
 RELEASE := $(shell git rev-list HEAD --count)
 
-GOPATH  := /tmp/go
-GOPWD   := $(GOPATH)/src/github.com/subchen
-GOCWD   := $(GOPWD)/$(NAME)
-
-PATH    := $(GOPATH)/bin:$(PATH)
-export PATH
-
 LDFLAGS := -s -w \
            -X 'main.BuildVersion=$(VERSION)' \
            -X 'main.BuildGitRev=$(RELEASE)' \
@@ -21,40 +14,30 @@ PACKAGES := $(shell go list ./... | grep -v /vendor/)
 default:
 	@ echo "no default target for Makefile"
 
-init:
-	mkdir -p $(GOPWD)
-	ln -sf $(CWD) $(GOPWD)
-
 clean:
 	rm -rf $(NAME) ./releases ./rpmbuild
-
-pre-install:
-	[ -n "$(shell type -P glide)" ]    || go get -u github.com/Masterminds/glide/...
-	[ -n "$(shell type -P glide-vc)" ] || go get -u github.com/sgotti/glide-vc/...
-	[ -n "$(shell type -P fpm)" ]      || gem install fpm
-
-glide-update:
-	glide update
 
 glide-vc:
 	glide-vc --only-code --no-tests --no-legal-files
 
 fmt:
-	go fmt $(PACKAGE)
+	go fmt $(PACKAGES)
 
 lint: fmt
-	go vet $(PACKAGE)
+	go vet $(PACKAGES)
 
-build: clean init fmt
-	cd $(GOCWD) && GOOS=linux GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o releases/$(NAME)-$(VERSION)
+build: clean fmt
+	GOOS=linux GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o releases/$(NAME)-$(VERSION)
 
 rpm: build
-	mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
+	mkdir -p rpmbuild
+	cp -f releases/$(NAME)-$(VERSION) rpmbuild/$(NAME)
+
 	rpmbuild -bb rpm.spec \
 		--define="_topdir  $(CWD)/rpmbuild" \
-		--define="_rootdir $(CWD)" \
 		--define="_version $(VERSION)" \
 		--define="_release $(RELEASE)"
+
 	cp -f rpmbuild/RPMS/x86_64/*.rpm releases/
 
 md5sum: build rpm

@@ -20,7 +20,7 @@ Configure networking from vSphere ovfEnv properties
 %build
 
 %install
-install -D -m0755 %{_rootdir}/releases/%{name}* $RPM_BUILD_ROOT/usr/local/bin/%{name}
+install -D -m0755 %{_topdir}/%{name} $RPM_BUILD_ROOT/usr/local/bin/%{name}
 
 %clean
 

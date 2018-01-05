@@ -204,7 +204,9 @@ func configureNetworking(props map[string]string, nics int) {
 		log.Infof("writing %s ...", filename)
 		err := dry.FileSetString(filename, sb.String())
 		gstack.PanicIfErr(err)
+	}
 
+	if nics > 0 {
 		log.Info("executing: systemctl stop NetworkManager.service ...")
 		gstack.ExecCommandStdpipe("systemctl", "stop", "NetworkManager.service")
 

@@ -1,6 +1,6 @@
 # ovfenv-installer
 
-[![Build Status](https://travis-ci.org/subchen/frep.svg?branch=master)](https://travis-ci.org/subchen/frep)
+[![Build Status](https://travis-ci.org/subchen/ovfenv-installer.svg?branch=master)](https://travis-ci.org/subchen/ovfenv-installer)
 [![License](http://img.shields.io/badge/License-Apache_2-red.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
 
 Configure networking from vSphere ovfEnv properties (CentOS 7.0+ Only)

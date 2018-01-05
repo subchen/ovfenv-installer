@@ -13,7 +13,7 @@ USAGE:
    ovfenv-installer [ OPTIONS ]
 
 VERSION:
-   1.0.1-10
+   1.0.2-15
 
 AUTHORS:
    Guoqiang Chen <subchen@gmail.com>
@@ -31,8 +31,8 @@ EXAMPLES:
 
 ## Downloads
 
-v1.0.1 Released: 
-https://github.com/subchen/ovfenv-installer/releases/tag/v1.0.1
+v1.0.2 Released:
+https://github.com/subchen/ovfenv-installer/releases/tag/v1.0.2
 
 ## Examples:
 

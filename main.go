@@ -34,7 +34,6 @@ func main() {
 	app.Usage = "Configure networking from vSphere ovfEnv properties"
 	app.UsageText = "[ OPTIONS ]"
 	app.Authors = "Guoqiang Chen <subchen@gmail.com>"
-	app.FlagsAlign = false
 
 	app.Flags = []*cli.Flag{
 		{

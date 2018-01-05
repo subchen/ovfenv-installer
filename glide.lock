@@ -1,14 +1,14 @@
 hash: 50beb2782def106d259ba264b045a3c996a9aac579a1c84e6821bc315141611f
-updated: 2017-12-11T13:04:28.302671+08:00
+updated: 2018-01-05T13:12:12.534190412Z
 imports:
 - name: github.com/antchfx/xpath
   version: 58d12fe685d684ed55aab3b988394652025e36dc
 - name: github.com/mattn/go-isatty
-  version: 6ca4dbf54d38eea1a992b3c722a76a5d1c4cb25c
+  version: 30a891c33c7cde7b02a981314b4228ec99380cca
 - name: github.com/subchen/gls
   version: 8f06b25d1df24dec7286ef32940b0f975a14bfca
 - name: github.com/subchen/go-cli
-  version: 3d42cb3d15e82fb226f62f99fd62cbaa4198efba
+  version: 77d7c51a29fc6a980fc1b7bb182e5cac47044226
 - name: github.com/subchen/go-log
   version: 6d38bf9391fd08e42df0220cd297b47e907005cb
 - name: github.com/subchen/go-stack
@@ -18,11 +18,11 @@ imports:
 - name: github.com/ungerik/go-dry
   version: 73dd38d72c6e74cdce93d0ca16de6da9d2e0b6e1
 - name: golang.org/x/sys
-  version: b8f5ef32195cae6470b728e8ca677f0dbed1a004
+  version: d75a52659825e75fff6158388dddc6a5b04f9ba5
   subpackages:
   - unix
 - name: golang.org/x/text
-  version: 3b24cac7bc3a458991ab409aa2a339ac9e0d60d6
+  version: 470f45bf29f4147d6fbd7dfd0a02a848e49f5bf4
   subpackages:
   - encoding
   - encoding/internal

@@ -1,5 +1,5 @@
 hash: 50beb2782def106d259ba264b045a3c996a9aac579a1c84e6821bc315141611f
-updated: 2018-01-05T13:12:12.534190412Z
+updated: 2018-01-05T13:39:38.660953802Z
 imports:
 - name: github.com/antchfx/xpath
   version: 58d12fe685d684ed55aab3b988394652025e36dc
@@ -8,7 +8,7 @@ imports:
 - name: github.com/subchen/gls
   version: 8f06b25d1df24dec7286ef32940b0f975a14bfca
 - name: github.com/subchen/go-cli
-  version: 77d7c51a29fc6a980fc1b7bb182e5cac47044226
+  version: 76320d2346eb6057539c4775657933ecdc3af58c
 - name: github.com/subchen/go-log
   version: 6d38bf9391fd08e42df0220cd297b47e907005cb
 - name: github.com/subchen/go-stack

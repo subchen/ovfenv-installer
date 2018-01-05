@@ -1,6 +1,6 @@
 CWD     := $(shell pwd)
 NAME    := ovfenv-installer
-VERSION := 1.0.1
+VERSION := 1.0.2
 RELEASE := $(shell git rev-list HEAD --count)
 
 LDFLAGS := -s -w \

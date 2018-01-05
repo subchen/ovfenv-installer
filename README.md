@@ -13,7 +13,7 @@ USAGE:
    ovfenv-installer [ OPTIONS ]
 
 VERSION:
-   1.0.2-15
+   1.0.2-17
 
 AUTHORS:
    Guoqiang Chen <subchen@gmail.com>
